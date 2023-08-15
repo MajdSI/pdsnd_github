@@ -194,6 +194,14 @@ def user_stats(df):
 #-----------------------------------------------------------------------------------
 
 def display_data(df):
+
+    """
+    Displays individual trip data from a DataFrame in a paginated manner.
+
+    This function prompts the user to view rows of trip data in a paginated format,
+    showing 5 rows at a time. The user can continue to view additional rows by
+    responding 'yes' to the prompt.
+    """
     
     view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no: ').lower()
     start_loc = 0
