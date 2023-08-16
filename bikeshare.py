@@ -81,14 +81,15 @@ def load_data(city, month, day):
     df['day_of_week'] = df['Start Time'].dt.weekday_name
 
     if month != 'all':
-        months = ['january','february','march','april','may','june']
-        month = months.index(month) + 1
+        months = ['jan','feb','mar','apr','may','jun']  # Use first three letters of month name
+        month = months.index(month[:3]) + 1
         df = df[df['month'] == month]
 
     if day != 'all':
         df = df[df['day_of_week'] == day.title()]
 
     return df
+
 
 
 #-----------------------------------------------------------------------------------
@@ -169,16 +170,19 @@ def user_stats(df):
     user_types = df['User Type'].value_counts()
     print(f'The number of user types: {user_types}')
 
-    # Display counts of gender
+    # Display counts and percentage of gender
     if 'Gender' not in df.columns:
-        print("The city's data dont have gender :(")
+        print("The city's data don't have gender :(")
     else:
         user_gender = df['Gender'].value_counts()
-        print(f'The number of gender: {user_gender}')
+        total_users = len(df)
+        gender_percentage = (user_gender / total_users) * 100
+        print(f'The number of gender:\n{user_gender}')
+        print(f'Gender percentage distribution:\n{gender_percentage}')
 
     # Display earliest, most recent, and most common year of birth
     if 'Birth Year' not in df.columns:
-        print("The city's data dont have birth year :(")
+        print("The city's data don't have birth year :(")
     else:
         earliest = int(df['Birth Year'].min())
         most_recent = int(df['Birth Year'].max())
@@ -190,6 +194,7 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+
 
 #-----------------------------------------------------------------------------------
 
